@@ -31,7 +31,7 @@ public class MyLogAspect {
         String methodName = signature.getName(); //获取方法名称
 
         MyLog mylog = method.getAnnotation(MyLog.class);
-        log.info("方法{}参数被注解修饰，value={}",methodName,mylog.value());
+        log.info("方法{}被注解修饰，value={}",methodName,mylog.value());
     }
 }
 
