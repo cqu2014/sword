@@ -1,0 +1,42 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.5.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://maven.aliyun.com/repository/apache-snapshots" }
+		maven { url "https://maven.aliyun.com/repository/snapshots" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'oliver.shein'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://maven.aliyun.com/repository/apache-snapshots" }
+	maven { url "https://maven.aliyun.com/repository/snapshots" }
+}
+
+
+dependencies {
+	/*implementation('org.springframework.boot:spring-boot-starter-amqp')*/
+	implementation('org.springframework.boot:spring-boot-starter-aop')
+	implementation('org.springframework.boot:spring-boot-starter-data-redis')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
+	compileOnly('org.projectlombok:lombok')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.49'
+	compile group: 'org.redisson', name: 'redisson', version: '3.8.2'
+	compile group: 'com.alibaba', name: 'druid', version: '1.1.11'
+}
