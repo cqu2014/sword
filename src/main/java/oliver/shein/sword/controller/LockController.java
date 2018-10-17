@@ -1,10 +1,9 @@
 package oliver.shein.sword.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import oliver.shein.sword.annotation.MyLog;
 import oliver.shein.sword.service.impl.HanoiThread;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author Oliver Wang
@@ -36,4 +35,9 @@ public class LockController {
         return "Over";
     }
 
+    @PostMapping(value = "/mylog")
+    @MyLog(value = "我是注解小天")
+    public String testLog(@RequestBody String name){
+        return "My Log is used here!";
+    }
 }

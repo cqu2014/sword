@@ -2,7 +2,7 @@ server:
   port: 8088
 spring:
   redis:
-    host: 127.0.0.1
+    host: 10.100.23.156
     port: 6379
     password:
   #数据源配置
