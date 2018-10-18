@@ -4,11 +4,13 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 
 @SpringBootApplication(scanBasePackages = {"oliver.shein.sword"})
+@ServletComponentScan(basePackages = {"oliver.shein.sword.filter"})
 @ConfigurationProperties(prefix="spring.datasource")
 public class SwordApplication {
 	private String url;

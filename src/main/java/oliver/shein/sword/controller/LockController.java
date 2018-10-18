@@ -37,7 +37,14 @@ public class LockController {
 
     @PostMapping(value = "/mylog")
     @MyLog(value = "我是注解小天")
-    public String testLog(@RequestBody String name){
+    public String testLog(@RequestParam("name") String name){
+        System.out.println("parameter: name = "+name);
         return "My Log is used here!";
+    }
+
+    @RequestMapping("/filter")
+    public void modify(@RequestParam("name") String name,@RequestParam("oliver")String oliver){
+        System.out.println("修改之后： " + name);
+        System.out.println("修改之后： " + oliver);
     }
 }
