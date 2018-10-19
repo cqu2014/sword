@@ -15,7 +15,7 @@ import java.io.IOException;
  * @Created by IntelliJ IDEA 2018.
  * @Date Create at 2018/10/18 15:09
  */
-@WebFilter(value = "/*")
+@WebFilter(value = "/admin/*")
 public class AdminFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

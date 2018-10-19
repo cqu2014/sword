@@ -23,7 +23,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  *
  * @from https://www.zifangsky.cn
  */
-@WebFilter(urlPatterns = "/lock/*",dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD})
+@WebFilter(urlPatterns = "/lock/test/*",dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD})
 public class ModifyParametersFilter extends OncePerRequestFilter {
 
     @Override

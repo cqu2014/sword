@@ -2,8 +2,14 @@ package oliver.shein.sword.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import oliver.shein.sword.annotation.MyLog;
+import oliver.shein.sword.service.IMsService;
 import oliver.shein.sword.service.impl.HanoiThread;
+import oliver.shein.sword.service.impl.MSThread;
+import oliver.shein.sword.utils.Generator;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @Author Oliver Wang
@@ -12,9 +18,16 @@ import org.springframework.web.bind.annotation.*;
  * @Date Create at 2018/10/16 14:28
  */
 @RestController
-@RequestMapping("/lock")
+@RequestMapping(value = "/lock")
 @Slf4j
 public class LockController {
+    @Resource
+    IMsService iMsService;
+
+    @Resource
+    RedisTemplate redisTemplate;
+
+
     @GetMapping(value = "/hanoi")
     public Object hanoi(){
         int n = 50;
@@ -46,5 +59,19 @@ public class LockController {
     public void modify(@RequestParam("name") String name,@RequestParam("oliver")String oliver){
         System.out.println("修改之后： " + name);
         System.out.println("修改之后： " + oliver);
+    }
+
+   @GetMapping(value = "/ms")
+    public void msBegin(){
+        for (int i = 0; i < 200; i++) {
+            MSThread threadA = new MSThread(iMsService,Generator.generateTaskId(),"oliver");
+            new Thread(threadA).start();
+        }
+    }
+
+     @GetMapping(value = "/product")
+    public Object product(){
+        redisTemplate.opsForValue().set("pronum","100");
+        return redisTemplate.opsForValue().get("pronum");
     }
 }
