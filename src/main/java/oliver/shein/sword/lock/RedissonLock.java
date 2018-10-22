@@ -17,7 +17,7 @@ import java.util.Random;
 @Component
 @Slf4j
 @NoArgsConstructor
-public class RedisLock {
+public class RedissonLock {
 
     private RedisTemplate redisTemplate;
 
@@ -40,7 +40,7 @@ public class RedisLock {
     /**
      * 是否锁住标志
      */
-    private volatile boolean locked = false;
+    private static volatile boolean locked = false;
     /**
      * 锁的主键key
      */
@@ -50,7 +50,7 @@ public class RedisLock {
      * 构造器
      * @param lockKey
      */
-    public RedisLock(RedisTemplate redisTemplate,String lockKey) {
+    public RedissonLock(RedisTemplate redisTemplate, String lockKey) {
         this.redisTemplate = redisTemplate;
         this.lockKey = lockKey+ Constants.LOCK_SUFFIX;
     }
@@ -60,7 +60,7 @@ public class RedisLock {
      * @param lockKey
      * @param timeout
      */
-    public RedisLock(RedisTemplate redisTemplate,String lockKey,int timeout){
+    public RedissonLock(RedisTemplate redisTemplate, String lockKey, int timeout){
         this(redisTemplate,lockKey);
         this.timeoutMsecs = timeout;
     }
@@ -71,7 +71,7 @@ public class RedisLock {
      * @param timeoutMsecs
      * @param expireMsecs
      */
-    public RedisLock(RedisTemplate redisTemplate,String lockKey, int timeoutMsecs,int expireMsecs) {
+    public RedissonLock(RedisTemplate redisTemplate, String lockKey, int timeoutMsecs, int expireMsecs) {
         this(redisTemplate,lockKey,timeoutMsecs);
         this.expireMsecs = expireMsecs;
     }
@@ -116,7 +116,7 @@ public class RedisLock {
      * @return 获取锁成功返回true，超时返回false
      * @throws InterruptedException
      */
-    public synchronized boolean lock() throws InterruptedException{
+    public boolean lock() throws InterruptedException{
         int timeout = this.timeoutMsecs;
         while (timeout >= 0){
             long expires = System.currentTimeMillis() + expireMsecs +1;
@@ -130,23 +130,26 @@ public class RedisLock {
             //获取redis里锁的有效时间
             String currentValue = this.get(lockKey);
 
-            //判断锁是否已经过期，过期则重新设置并获取
+            //判断锁是否已经过期，过期则重新设置并获取[当锁已过期]
             if (currentValue != null && Long.parseLong(currentValue) < System.currentTimeMillis()){
                 //设置锁并返回旧值
                 String oldValue = this.getSet(lockKey,expireStr);
-                //比较锁的时间，如果不一致则可能是其他锁已经修改了值并获取
+                /**
+                 * 乐观锁
+                 * 如果oldValue不等于初始redis中的key
+                 * 可能是其他线程已经修改了值并获取
+                 */
                 if (oldValue !=null && oldValue.equals(currentValue)){
                         locked = true;
                         return true;
                 }
 
-                timeout -= this.DEFAULT_ACQUIRE_RESOLUTION_MILLIS;
-
-                /**
-                 * 随机阻塞一段时间
-                 */
                 Random random = new Random(25);
-                Thread.sleep(random.nextInt(10000));
+                int nextRandoms = random.nextInt(10000);
+
+                timeout -= nextRandoms;
+                //阻塞等待
+                Thread.sleep(nextRandoms);
             }
 
         }
@@ -156,7 +159,7 @@ public class RedisLock {
     /**
      * 释放获取到的锁
      */
-    public synchronized  void unlock(){
+    public void unlock(){
         if (locked){
             redisTemplate.delete(lockKey);
             locked = false;

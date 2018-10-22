@@ -1,5 +1,7 @@
 package oliver.shein.sword.service;
 
+import oliver.shein.sword.annotation.RedisLock;
+
 /**
  * @Author Oliver Wang
  * @Description 秒杀代码
@@ -14,4 +16,12 @@ public interface IMsService {
      * @return
      */
     boolean seckill(String key,long threadNo);
+
+    /**
+     * 抢购代码
+     *
+     * @param threadNo
+     * @return
+     */
+    void sckill(long threadNo);
 }

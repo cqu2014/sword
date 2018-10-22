@@ -1,7 +1,9 @@
 package oliver.shein.sword.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import oliver.shein.sword.lock.RedisLock;
+import oliver.shein.sword.annotation.RedisLock;
+import oliver.shein.sword.component.utils.RedisTemplateEnclosure;
+import oliver.shein.sword.lock.RedissonLock;
 import oliver.shein.sword.service.IMsService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -22,9 +24,12 @@ public class MsServiceImpl implements IMsService {
     @Resource
     RedisTemplate redisTemplate;
 
+    @Resource
+    RedisTemplateEnclosure enclosure;
+
     @Override
     public boolean seckill(String key,long threadNo) {
-        RedisLock lock = new RedisLock(redisTemplate,key);
+        RedissonLock lock = new RedissonLock(redisTemplate,key);
         try {
             if (lock.lock()){
                 String pronum = (String) redisTemplate.opsForValue().get(NUM_PRODUCT_KEY);
@@ -50,5 +55,17 @@ public class MsServiceImpl implements IMsService {
         }
 
         return false;
+    }
+
+    @Override
+    @RedisLock(prefix = "sword",key = "lock",timeoutMsecs = 100000)
+    public void sckill(long threadNo) {
+        String pronum = enclosure.get(NUM_PRODUCT_KEY);
+        if (Integer.parseInt(pronum) - 1 >=0){
+            redisTemplate.opsForValue().set(NUM_PRODUCT_KEY,String.valueOf(Integer.parseInt(pronum) - 1));
+            System.out.println("库存数量:"+pronum+" 成功!!!"+threadNo);
+        }else {
+            System.out.println("手慢拍大腿");
+        }
     }
 }
