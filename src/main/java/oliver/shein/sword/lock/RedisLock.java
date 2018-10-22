@@ -142,7 +142,9 @@ public class RedisLock {
 
                 timeout -= this.DEFAULT_ACQUIRE_RESOLUTION_MILLIS;
 
-                //阻塞等待
+                /**
+                 * 随机阻塞一段时间
+                 */
                 Random random = new Random(25);
                 Thread.sleep(random.nextInt(10000));
             }
