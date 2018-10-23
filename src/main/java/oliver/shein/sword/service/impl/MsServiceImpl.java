@@ -63,6 +63,7 @@ public class MsServiceImpl implements IMsService {
         String pronum = enclosure.get(NUM_PRODUCT_KEY);
         if (Integer.parseInt(pronum) - 1 >=0){
             redisTemplate.opsForValue().set(NUM_PRODUCT_KEY,String.valueOf(Integer.parseInt(pronum) - 1));
+            //redisTemplate.opsForValue().increment(NUM_PRODUCT_KEY,-1);
             System.out.println("库存数量:"+pronum+" 成功!!!"+threadNo);
         }else {
             System.out.println("手慢拍大腿");

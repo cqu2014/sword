@@ -71,7 +71,7 @@ public class LockController {
 
      @GetMapping(value = "/product")
     public Object product(){
-        redisTemplate.opsForValue().set("pronum","100");
+        redisTemplate.opsForValue().set("pronum",100);
         return redisTemplate.opsForValue().get("pronum");
     }
 }
