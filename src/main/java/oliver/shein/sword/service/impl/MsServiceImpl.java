@@ -58,7 +58,7 @@ public class MsServiceImpl implements IMsService {
     }
 
     @Override
-    @RedisLock(prefix = "sword",key = "lock",timeoutMsecs = 100000)
+    @RedisLock(prefix = "sword",key = "lock",timeoutMsecs = 1000)
     public void sckill(long threadNo) {
         String pronum = enclosure.get(NUM_PRODUCT_KEY);
         if (Integer.parseInt(pronum) - 1 >=0){

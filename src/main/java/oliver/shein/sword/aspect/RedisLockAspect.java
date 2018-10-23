@@ -86,12 +86,12 @@ public class RedisLockAspect {
             }
             //阻塞随机时间等待重试试
             Random random = new Random(25);
-            int nextValue = random.nextInt(100); //单位毫秒
+            int nextValue = random.nextInt(lock.retries()); //单位毫秒
             timeout -=nextValue;
 
             Thread.sleep(nextValue);
         }
-        log.info("获取锁失败，不具有执行权");
+        log.info("获取锁超时{}，不具有执行权",lock.timeoutMsecs());
         return null;
     }
 

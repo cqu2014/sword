@@ -63,7 +63,7 @@ public class LockController {
 
    @GetMapping(value = "/ms")
     public void msBegin(){
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 1000; i++) {
             MSThread threadA = new MSThread(iMsService,Generator.generateTaskId(),"oliver");
             new Thread(threadA).start();
         }

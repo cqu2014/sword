@@ -27,4 +27,11 @@ public @interface RedisLock {
      * @return
      */
     int timeoutMsecs() default 10*1000;
+
+    /**
+     * 重试获取锁的阻塞时间
+     *
+     * @return
+     */
+    int retries() default 10;
 }
