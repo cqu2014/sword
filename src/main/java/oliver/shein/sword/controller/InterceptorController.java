@@ -1,13 +1,10 @@
 package oliver.shein.sword.controller;
 
 import oliver.shein.sword.annotation.Access;
-import oliver.shein.sword.service.IHanoiService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * @Author Oliver Wang
