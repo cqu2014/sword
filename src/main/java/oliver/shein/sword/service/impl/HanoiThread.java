@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 public class HanoiThread  implements Runnable{
     /**
      * spring 处于安全考虑Runnable实现类不能使用
-     * @Resource注解注入依赖
+     * @Resource注解注入依赖{Runnable 通过new出来的}
      */
     private static IHanoiService iHanoiService;
 
