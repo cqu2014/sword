@@ -1,9 +1,8 @@
 package oliver.shein.sword.controller;
 
 import oliver.shein.sword.configuration.ConfigPropertyUse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import oliver.shein.sword.vo.DateTransferRequest;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -22,5 +21,10 @@ public class PropertiesTestConroller {
     @GetMapping(value = "/get")
     public Object getValue(){
         return configPropertyUse.getHost()+":"+configPropertyUse.getPort();
+    }
+
+    @PostMapping(value = "/date")
+    public Object changeDate(@RequestBody DateTransferRequest transferRequest){
+        return transferRequest;
     }
 }

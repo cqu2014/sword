@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 
-@SpringBootApplication(scanBasePackages = {"oliver.shein.sword"})
+@SpringBootApplication
 @ServletComponentScan(basePackages = {"oliver.shein.sword.filter"})
 @ConfigurationProperties(prefix="spring.datasource")
 public class SwordApplication {
