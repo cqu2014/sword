@@ -7,6 +7,7 @@ import oliver.shein.sword.service.impl.HanoiThread;
 import oliver.shein.sword.service.impl.MSThread;
 import oliver.shein.sword.utils.Generator;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -73,5 +74,22 @@ public class LockController {
     public Object product(){
         redisTemplate.opsForValue().set("pronum",100);
         return redisTemplate.opsForValue().get("pronum");
+    }
+
+    @GetMapping(value = "ting")
+    public String shuting(){
+        return "请问你是我廷吗？";
+    }
+
+    public static void main(String[] args) {
+        String result = null;
+
+        result = "456";
+
+        if (StringUtils.isEmpty(result)){
+            System.out.println("123");
+        }else {
+            System.out.println(result);
+        }
     }
 }
