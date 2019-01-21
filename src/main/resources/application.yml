@@ -3,7 +3,7 @@ server:
 spring:
   redis:
     database: 0
-    host: 10.100.23.156
+    host: 127.0.0.1
     port: 6379
     password:
     timeout: 10000
@@ -21,6 +21,6 @@ spring:
   rabbitmq:
     host: 169.44.201.253
     port: 5672
-    username: "order"
-    password: "123456"
+    username: order
+    password: 123456
     vitualhost: order
