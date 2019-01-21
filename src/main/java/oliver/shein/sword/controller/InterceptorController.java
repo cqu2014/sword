@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/interceptor")
 public class InterceptorController {
-    // 配置注解权限, 允许身份为admin, 或者说允许权限为admin的人访问
+    /**
+     * 配置注解权限, 允许身份为admin, 或者说允许权限为admin的人访问
+     *
+     * @return
+     */
     @RequestMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.GET)
     @Access(authorities = {"admin"})
     public String hello() {
