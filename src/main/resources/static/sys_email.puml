@@ -1,0 +1,23 @@
+@startuml
+skinparam handwritten true
+
+    业务系统 -> Rabbit:请求发送邮件
+
+    Rabbit -> ECRM: 消费请求数据
+
+    database 会员系统DB
+    ECRM -> 会员系统DB: 数据持久化
+
+    ==定时任务==
+
+    ECRM -> 会员系统DB: 定时批量发送邮件
+    会员系统DB -> 会员系统DB: 订单与发送订单的映射
+
+    ECRM -> 邮件发送平台: 批量请求发送邮件
+
+    邮件发送平台 --> ECRM: 异步回到
+    ECRM --> 会员系统DB: 更改订单状态
+
+    ECRM --> 业务系统: 被动接受异步回调发送结果
+    业务系统 -> ECRM: 主动查询订单发送状态
+@enduml
