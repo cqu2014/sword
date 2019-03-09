@@ -27,11 +27,17 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class RedissonLockInterceptor implements MethodInterceptor {
-    //获取方法的参数名称 paramName
+    /**
+     * 获取方法的参数名称 paramName
+     */
     private LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
-    //阻塞时间
+    /**
+     * /阻塞时间
+     */
     private int timeWait;
-    //系统名称作为分布式锁的前缀
+    /**
+     * 系统名称作为分布式锁的前缀
+     */
     public static final String SYSTEM_NAME = "OLIVER_SWORD|";
 
     @Resource
@@ -49,7 +55,7 @@ public class RedissonLockInterceptor implements MethodInterceptor {
         String tail = "lock";
 
         //value非空情况下
-        if(!StringUtils.isEmpty(value)){
+        if (!StringUtils.isEmpty(value)) {
             //表达式计算器
             ExpressionParser expressionParser = new SpelExpressionParser();
             Expression expression = expressionParser.parseExpression(value);
@@ -67,12 +73,12 @@ public class RedissonLockInterceptor implements MethodInterceptor {
         /**
          * 根据block获取不同的锁
          */
-        if (block){
+        if (block) {
             rLock.lock(timeWait, TimeUnit.SECONDS);
             log.info("添加全局锁阻塞成功");
-        }else {
-            if (!rLock.tryLock()){
-                log.info("非阻塞锁{}被锁住，获取失败",lockKey);
+        } else {
+            if (!rLock.tryLock()) {
+                log.info("非阻塞锁{}被锁住，获取失败", lockKey);
                 throw new Exception("获取非阻塞锁失败");
             }
             log.info("添加非阻塞锁成功");
@@ -82,8 +88,8 @@ public class RedissonLockInterceptor implements MethodInterceptor {
         try {
             //执行注解修饰的方法
             ret = invocation.proceed();
-        }finally {
-            if (!StringUtils.isEmpty(lockKey) && rLock != null) {
+        } finally {
+            if (!StringUtils.isEmpty(lockKey)) {
                 rLock.unlock();
             }
         }
