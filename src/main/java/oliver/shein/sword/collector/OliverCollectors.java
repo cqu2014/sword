@@ -1,15 +1,11 @@
 package oliver.shein.sword.collector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 /**
  * @Author Oliver Wang
  * @Description Oliver 实现的集合收集器
@@ -17,7 +13,19 @@ import java.util.stream.Collectors;
  * @Date Create at 2019/3/8
  */
 public class OliverCollectors {
-
+    static final Set<Collector.Characteristics> CH_CONCURRENT_ID
+            = Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.CONCURRENT,
+            Collector.Characteristics.UNORDERED,
+            Collector.Characteristics.IDENTITY_FINISH));
+    static final Set<Collector.Characteristics> CH_CONCURRENT_NOID
+            = Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.CONCURRENT,
+            Collector.Characteristics.UNORDERED));
+    static final Set<Collector.Characteristics> CH_ID
+            = Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.IDENTITY_FINISH));
+    static final Set<Collector.Characteristics> CH_UNORDERED_ID
+            = Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.UNORDERED,
+            Collector.Characteristics.IDENTITY_FINISH));
+    static final Set<Collector.Characteristics> CH_NOID = Collections.emptySet();
     /**
      * 默认构造函数
      */
@@ -123,7 +131,7 @@ public class OliverCollectors {
     public static <T> Collector<T, ?, List<T>> toList() {
         return new OliverCollectorsImpl<>((Supplier<List<T>>) ArrayList::new,List::add,
                 (left,right)->{left.addAll(right); return left;},
-                Collector.Characteristics.IDENTITY_FINISH);
+                CH_ID);
 
     }
 }
