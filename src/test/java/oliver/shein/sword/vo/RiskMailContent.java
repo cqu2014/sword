@@ -1,6 +1,7 @@
 package oliver.shein.sword.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -14,21 +15,18 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class RiskMailContent {
     /*主题*/
-    @JsonProperty(value = "email_title")
     private String emailTitle;
 
     /*类型*/
-    @JsonProperty(value = "email_type")
     private String emailType;
 
     /*复制邮件模板*/
-    @JsonProperty(value = "duplication_email_template")
     private String duplicationEmailTemplate;
 
     /*邮件模板内容*/
-    @JsonProperty(value = "email_template_content")
     private String emailTemplateContent;
 
 }
