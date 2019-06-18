@@ -1,5 +1,7 @@
 package oliver.shein.sword.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import oliver.shein.sword.annotation.MyLog;
 import oliver.shein.sword.service.IMsService;
@@ -19,6 +21,7 @@ import javax.annotation.Resource;
  * @Date Create at 2018/10/16 14:28
  */
 @RestController
+@Api(value = "swagger",tags = "swagger",description = "swagger")
 @RequestMapping(value = "/lock")
 @Slf4j
 public class LockController {
@@ -26,9 +29,10 @@ public class LockController {
     IMsService iMsService;
 
     @Resource
-    RedisTemplate redisTemplate;
+    RedisTemplate<String, Integer> redisTemplate;
 
 
+    @ApiOperation(value="汉诺塔",notes="汉诺塔测试")
     @GetMapping(value = "/hanoi")
     public Object hanoi(){
         int n = 50;

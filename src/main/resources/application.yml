@@ -1,6 +1,8 @@
 server:
   port: 8088
 spring:
+  application:
+    name: sword
   redis:
     database: 0
     host: 127.0.0.1
@@ -23,3 +25,9 @@ spring:
     username: ${oliver.rabbitmq.username}
     password: ${oliver.rabbitmq.password}
     virtual-host: ${oliver.rabbitmq.vitualhost}
+# swagger设置
+swagger:
+  enable: true
+  title: Oliver Swagger for sword
+  description: Starter for swagger 2.x
+  version: 1.0.0.RELEASE

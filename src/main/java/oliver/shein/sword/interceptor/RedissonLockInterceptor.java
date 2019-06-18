@@ -65,7 +65,8 @@ public class RedissonLockInterceptor implements MethodInterceptor {
             for (int i = 0; i < args.length; i++) {
                 context.setVariable(argNames[i], args[i]);
             }
-            tail = expression.getValue(context).toString(); //value值
+            //value值
+            tail = expression.getValue(context).toString();
         }
 
         String lockKey = this.SYSTEM_NAME + prefix + "|" + tail;

@@ -22,7 +22,7 @@ public class Generator {
             Long now = System.currentTimeMillis();
             Random random = new Random();
             int randNum = random.nextInt(9999)+10000;
-            String randStr = String.valueOf(now)+String.valueOf(randNum);
+            String randStr = now +String.valueOf(randNum);
             return Long.parseLong(randStr);
         }catch (Exception e){
             log.error("生成随机的taskId失败");
