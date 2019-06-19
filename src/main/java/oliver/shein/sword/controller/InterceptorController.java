@@ -1,5 +1,6 @@
 package oliver.shein.sword.controller;
 
+import io.swagger.annotations.ApiOperation;
 import oliver.shein.sword.annotation.Access;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class InterceptorController {
      *
      * @return
      */
+    @ApiOperation(value = "配置注解权限")
     @RequestMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.GET)
     @Access(authorities = {"admin"})
     public String hello() {

@@ -23,9 +23,9 @@ public class MSThread implements Runnable{
 
     @Override
     public void run() {
-        //log.info("线程{}开始秒杀",threadNo);
-        //iMsService.seckill(lockey,threadNo);
+        log.info("线程{}开始秒杀",threadNo);
+        iMsService.seckill(lockey,threadNo);
         iMsService.sckill(threadNo);
-        //log.info("线程{}结束",threadNo);
+        log.info("线程{}结束",threadNo);
     }
 }

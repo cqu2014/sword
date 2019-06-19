@@ -23,17 +23,22 @@ public class HanoiServiceImpl implements IHanoiService {
      * @param temp
      * @param target
      */
+    @Override
     @Lock(prefix = "hanoi",value = "#n",block = false)
     public void move(int n, char start, char temp, char target){
-        if(n==0) return;
-        if(n==1) System.out.println(start+"----->"+target);
-        else{
+        if(n==0) {
+            return;
+        }
+        if(n==1) {
+            System.out.println(start+"----->"+target);
+        } else{
             move(n-1,start,target,temp);
             System.out.println(start+"----->"+target);
             move(n-1,temp,start,target);
         }
     }
 
+    @Override
     @Lock(prefix = "hanoi",value = "#lock",block = true)
     public void hanoi(String lock,int no){
         long methodNo = Generator.generateTaskId();

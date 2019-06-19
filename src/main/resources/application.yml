@@ -29,5 +29,5 @@ spring:
 swagger:
   enable: true
   title: Oliver Swagger for sword
-  description: Starter for swagger 2.x
+  description: 基于swagger-spring-boot-starter的工具
   version: 1.0.0.RELEASE

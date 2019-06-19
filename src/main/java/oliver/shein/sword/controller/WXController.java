@@ -1,5 +1,6 @@
 package oliver.shein.sword.controller;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import java.util.Arrays;
 public class WXController {
     private final String TOKEN = "a4d33d001c034";
 
+    @ApiOperation(value = "调用微信小程序接口")
     @GetMapping(value = "/wx")
     public String test(@RequestParam("signature") String signature,
                        @RequestParam("timestamp") String timestamp,
