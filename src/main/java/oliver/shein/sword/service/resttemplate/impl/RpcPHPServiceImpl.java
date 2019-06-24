@@ -1,6 +1,5 @@
 package oliver.shein.sword.service.resttemplate.impl;
 
-import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import oliver.shein.sword.service.resttemplate.RpcPHPService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,15 @@ public class RpcPHPServiceImpl implements RpcPHPService {
 
     @Override
     public Object addLetter(Object object) {
-        return restTemplate.postForObject(url, object,String.class);
+        String response;
+        try {
+            response = restTemplate.postForObject(url, object,String.class);
+            log.info(response);
+        }catch (Exception ex){
+            log.warn("",ex);
+            return null;
+        }
+
+        return response;
     }
 }
