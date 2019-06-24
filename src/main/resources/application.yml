@@ -61,6 +61,17 @@ swagger:
     show-request-headers: true
     request-timeout: 5000
 
-  #消除 Illegal DefaultValue null for parameter type integer
+# restTemplate params
+sword:
+  php.host: ${oliver.php.host}
+
 logging:
-  level.io.swagger.models.parameters.AbstractSerializableParameter: error
+  pattern:
+    file: "oliver.log.%d{yyyy-MM-dd}.log"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+  path: "./logs"
+  file:
+    max-history: 30
+    max-size: 10MB
+  level:
+    oliver.shein.sword: debug
