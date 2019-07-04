@@ -86,7 +86,8 @@ public class RedisLockAspect {
             }
             //阻塞随机时间等待重试试
             Random random = new Random(25);
-            int nextValue = random.nextInt(lock.retries()); //单位毫秒
+            //单位毫秒
+            int nextValue = random.nextInt(lock.retries());
             timeout -=nextValue;
 
             Thread.sleep(nextValue);

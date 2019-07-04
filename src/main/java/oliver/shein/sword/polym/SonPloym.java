@@ -9,8 +9,8 @@ import lombok.Data;
  * @Date Create at 2018/11/2 16:07
  */
 @Data
-public class SonPloym extends FatherPolym{
-    private String girlFriend;
+public class SonPloym extends FatherPloym {
+    private String girlFriend = "";
 
     @Override
     public  String toString(){

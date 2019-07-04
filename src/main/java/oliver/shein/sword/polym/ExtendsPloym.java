@@ -9,14 +9,20 @@ import com.alibaba.fastjson.JSON;
  * @Date Create at 2018/11/2 16:09
  */
 public class ExtendsPloym {
-    public static final String JSON_STRING = "{\"name\":\"Oliver Wang\",\"sex\":0,\"girlFriend\":\"UNKNOWN\"}";
+    private static final String JSON_STRING = "{\"name\":\"Oliver Wang\",\"sex\":0,\"girlFriend\":\"UNKNOWN\"}";
 
     public static void main(String[] args) {
-        FatherPolym fatherPolym = JSON.parseObject(JSON_STRING,FatherPolym.class);
-
-        System.out.println(fatherPolym);
-
-        SonPloym sonPloym = (SonPloym) fatherPolym;
+        SonPloym sonPloym = JSON.parseObject(JSON_STRING, SonPloym.class);
         System.out.println(sonPloym);
+
+        //如果子类中重写了父类中的一个方法，那么在调用这个方法的时候，将会调用子类中的这个方法
+        System.out.println(((FatherPloym) sonPloym).toString());
+
+        System.out.println("----------------------------");
+
+        FatherPloym fatherPloym = JSON.parseObject(JSON_STRING,FatherPloym.class);
+        //只有父类对象本身就是用子类new出来的时候, 才可以在将来被强制转换为子类对象
+        SonPloym sonPloym1 = (SonPloym) fatherPloym;
+        System.out.println(sonPloym1);
     }
 }

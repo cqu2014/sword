@@ -9,7 +9,7 @@ import lombok.Data;
  * @Date Create at 2018/11/2 16:02
  */
 @Data
-public class FatherPolym {
-    private String name;//私有属性
-    private int sex;
+public class FatherPloym {
+    String name;
+    int sex;
 }
