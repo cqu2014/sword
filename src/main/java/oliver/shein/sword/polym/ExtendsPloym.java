@@ -25,7 +25,7 @@ public class ExtendsPloym {
         /**
          * 非子类对象new出来的异常
          */
-        SonPloym sonPloym1 = (SonPloym) fatherPloym;
-        System.out.println(sonPloym1);
+        SonPloym sonPloy1 = (SonPloym) fatherPloym;
+        System.out.println(sonPloy1);
     }
 }
