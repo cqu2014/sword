@@ -22,6 +22,9 @@ public class ExtendsPloym {
 
         FatherPloym fatherPloym = JSON.parseObject(JSON_STRING,FatherPloym.class);
         //只有父类对象本身就是用子类new出来的时候, 才可以在将来被强制转换为子类对象
+        /**
+         * 非子类对象new出来的异常
+         */
         SonPloym sonPloym1 = (SonPloym) fatherPloym;
         System.out.println(sonPloym1);
     }
