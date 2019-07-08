@@ -1,6 +1,7 @@
 package oliver.shein.sword.polym;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @Author Oliver Wang
@@ -9,11 +10,15 @@ import lombok.Data;
  * @Date Create at 2018/11/2 16:07
  */
 @Data
+@ToString
 public class SonPloym extends FatherPloym {
-    private String girlFriend = "";
+    private String girlFriend;
 
-    @Override
-    public  String toString(){
-        return super.toString()+",girlFriend="+girlFriend;
+    public SonPloym(){}
+
+    public SonPloym(String name,int sex,String girlFriend) {
+        this.name = name;
+        this.sex = sex;
+        this.girlFriend = girlFriend;
     }
 }
