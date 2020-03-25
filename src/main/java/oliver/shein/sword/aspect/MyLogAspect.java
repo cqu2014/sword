@@ -10,6 +10,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.Arrays;
 
 /**
  * @Author Oliver Wang
@@ -27,11 +29,16 @@ public class MyLogAspect {
     @Before("annotationPointCut()")
     public void before(JoinPoint joinPoint){
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Method method = signature.getMethod(); //获取方法
-        String methodName = signature.getName(); //获取方法名称
+        //获取方法
+        Method method = signature.getMethod();
+        //获取方法名称
+        String methodName = signature.getName();
+        //获取方法参数
+        Parameter[] parameters = method.getParameters();
 
         MyLog mylog = method.getAnnotation(MyLog.class);
-        log.info("方法{}被注解修饰，value={}",methodName,mylog.value());
+        log.info("方法{}被注解修饰，value={},参数={}",methodName,mylog.value(),
+                Arrays.toString(parameters));
     }
 }
 

@@ -33,12 +33,7 @@ public class MsServiceImpl implements IMsService {
         try {
             if (lock.lock()){
                 String pronum = (String) redisTemplate.opsForValue().get(NUM_PRODUCT_KEY);
-                if (Integer.parseInt(pronum) - 1 >=0){
-                    redisTemplate.opsForValue().set(NUM_PRODUCT_KEY,String.valueOf(Integer.parseInt(pronum) - 1));
-                    System.out.println("库存数量:"+pronum+" 成功!!!"+threadNo);
-                }else {
-                    System.out.println("手慢拍大腿");
-                }
+                cacheProductNum(threadNo, pronum);
                 return true;
             }
         }catch (InterruptedException e){
@@ -53,20 +48,22 @@ public class MsServiceImpl implements IMsService {
              */
             lock.unlock();
         }
-
         return false;
+    }
+
+    private void cacheProductNum(long threadNo, String pronum) {
+        if (Integer.parseInt(pronum) - 1 >=0){
+            redisTemplate.opsForValue().set(NUM_PRODUCT_KEY,String.valueOf(Integer.parseInt(pronum) - 1));
+            System.out.println("库存数量:"+pronum+" 成功!!!"+threadNo);
+        }else {
+            System.out.println("手慢拍大腿");
+        }
     }
 
     @Override
     @RedisLock(prefix = "sword",key = "lock",timeoutMsecs = 1000)
     public void sckill(long threadNo) {
         String pronum = enclosure.get(NUM_PRODUCT_KEY);
-        if (Integer.parseInt(pronum) - 1 >=0){
-            redisTemplate.opsForValue().set(NUM_PRODUCT_KEY,String.valueOf(Integer.parseInt(pronum) - 1));
-            //redisTemplate.opsForValue().increment(NUM_PRODUCT_KEY,-1);
-            System.out.println("库存数量:"+pronum+" 成功!!!"+threadNo);
-        }else {
-            System.out.println("手慢拍大腿");
-        }
+        cacheProductNum(threadNo, pronum);
     }
 }
