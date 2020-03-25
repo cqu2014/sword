@@ -8,14 +8,16 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -58,5 +60,17 @@ public class ExportFileServiceImpl implements ExportFileService {
             log.warn("exportCsv异常{}",e);
         }
         log.info("exportCsv success");
+    }
+
+    @Override
+    public void exportCsv(Long num) {
+        HttpServletResponse response = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
+                .getResponse();
+        //1.设置文件ContentType类型
+        Objects.requireNonNull(response).setContentType("application/octet-stream");
+        response.setCharacterEncoding("UTF-8");
+        //2.设置文件头
+        response.setHeader("Content-Disposition", "attachment;fileName=".concat(String.valueOf(num)).concat(".csv"));
+        exportCsv(response,num);
     }
 }

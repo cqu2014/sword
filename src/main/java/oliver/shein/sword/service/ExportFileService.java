@@ -12,9 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 public interface ExportFileService {
     /**
      * 导出csv文件
-     * 
+     *
      * @param response
      * @param num
      */
     void exportCsv(HttpServletResponse response,Long num);
+
+    /**
+     * 导出csv文件
+     *
+     * @param num
+     */
+    void exportCsv(Long num);
 }

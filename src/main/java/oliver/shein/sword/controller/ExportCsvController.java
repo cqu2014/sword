@@ -42,6 +42,7 @@ public class ExportCsvController {
         response.setCharacterEncoding("UTF-8");
         //2.设置文件头
         response.setHeader("Content-Disposition", "attachment;fileName=".concat(fileName).concat(".csv"));
-        exportFileService.exportCsv(response,number);
+        //exportFileService.exportCsv(response,number);
+        exportFileService.exportCsv(num);
     }
 }
