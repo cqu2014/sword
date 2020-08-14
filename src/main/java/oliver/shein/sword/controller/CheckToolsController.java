@@ -5,7 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import oliver.shein.sword.controller.request.UserInfo;
-import oliver.shein.sword.core.ResponseVo;
+import oliver.shein.sword.controller.response.ResponseVo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;

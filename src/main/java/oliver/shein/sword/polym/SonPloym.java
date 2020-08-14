@@ -1,6 +1,7 @@
 package oliver.shein.sword.polym;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -10,7 +11,7 @@ import lombok.ToString;
  * @Date Create at 2018/11/2 16:07
  */
 @Data
-@ToString
+@EqualsAndHashCode(callSuper = false)
 public class SonPloym extends FatherPloym {
     private String girlFriend;
 

@@ -1,4 +1,4 @@
-package oliver.shein.sword.core;
+package oliver.shein.sword.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
