@@ -63,10 +63,15 @@ public class ExportJsonExcelServiceImpl implements IExportJsonExcelService {
         final List<List<String>> apiInfoList = new LinkedList<>();
         apiInfoList.add(CollUtil.newArrayList("接口名称","模块名称","请求方法","接口地址"));
         stringArrayList.forEach(x->{
-            String method = getMethod(jsonString,x);
-            String summary = JsonCode.getValue(jsonString,"$.paths."+x+"."+method+".summary");
-            String[] valueList = JsonCode.getValueList(jsonString, "$.paths." + x + "." + method + ".tags");
-            apiInfoList.add(CollUtil.newArrayList(summary,valueList[0].replaceAll("\\u0022",""),method,x));
+          try{
+              String method = getMethod(jsonString,x);
+              String summary = JsonCode.getValue(jsonString,"$.paths."+x+"."+method+".summary");
+              String[] valueList = JsonCode.getValueList(jsonString, "$.paths." + x + "." + method + ".tags");
+              apiInfoList.add(CollUtil.newArrayList(summary,valueList[0].replaceAll("\\u0022",""),method,x));
+          }catch (Exception exception){
+              log.error("x-> {}",JSONUtil.toJsonStr(x));
+              throw new RuntimeException("json 转换异常");
+          }
         });
         //通过工具类创建writer
         ExcelWriter writer = ExcelUtil.getWriter("d:/ucm_system/"+filename+".xlsx");
